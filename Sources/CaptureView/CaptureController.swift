@@ -7,19 +7,26 @@ import Foundation
 import AVFoundation
 import Vision
 
-protocol BarcodeScannerDelegate: AnyObject {
+protocol CaptureDelegate: AnyObject {
     func detected(barcode: String)
     func attach(layer: CALayer)
 }
 
-@objc class BarcodeScanner: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
+/// Controller which manages an AVCaptureSession.
+/// Currently this session is dedicated to scanning for barcodes, but it could be broadened
+/// out to perform other capture-related work.
+///
+/// The controller is implemented at the Core Animation level, so it's not tied to UIKit or AppKit.
+/// It uses a delegate to pass a CALayer which the user interface code should then embed in a view.
+
+public final class CaptureController: NSObject, AVCaptureVideoDataOutputSampleBufferDelegate {
     let session: AVCaptureSession
     let device: AVCaptureDevice
-    weak var delegate: BarcodeScannerDelegate?
+    weak var delegate: CaptureDelegate?
     
     var requests = [VNRequest]()
     
-    init?(delegate: BarcodeScannerDelegate? = nil) {
+    init?(delegate: CaptureDelegate? = nil) {
         
         guard let device = AVCaptureDevice.default(for: AVMediaType.video) else {
             return nil
@@ -72,7 +79,7 @@ protocol BarcodeScannerDelegate: AnyObject {
         self.requests = [request]
     }
     
-    func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+    public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
             return
         }

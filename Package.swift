@@ -18,7 +18,7 @@ let package = Package(
             targets: ["CaptureView"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/elegantchaos/XCTestExtensions.git", from: "1.2.0")
+        .package(url: "https://github.com/elegantchaos/XCTestExtensions.git", from: "1.3.1")
     ],
     targets: [
         .target(
