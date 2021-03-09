@@ -29,6 +29,7 @@ public struct CaptureView : UIViewControllerRepresentable {
     }
     
     public func updateUIViewController(_ uiViewController: CaptureUIViewController, context: UIViewControllerRepresentableContext<CaptureView>) {
+        
     }
     
 }

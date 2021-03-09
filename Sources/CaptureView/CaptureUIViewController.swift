@@ -36,6 +36,15 @@ public final class CaptureUIViewController: UIViewController {
         captureController?.shutdown()
         super.viewWillDisappear(animated)
     }
+    
+    public override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        resizeCaptureLayer()
+    }
+    
+    func resizeCaptureLayer() {
+        captureLayer?.frame = CGRect(origin: .zero, size: view.frame.size)
+    }
 }
 
 extension CaptureUIViewController: CaptureDelegate {
@@ -44,11 +53,12 @@ extension CaptureUIViewController: CaptureDelegate {
     }
     
     func attach(layer: CALayer) {
-        view.layer.addSublayer(layer)
         layer.anchorPoint = .zero
         layer.position = .zero
-        layer.frame = CGRect(origin: .zero, size: view.frame.size)
+        view.layer.addSublayer(layer)
+
         captureLayer = layer
+        resizeCaptureLayer()
     }
 }
 
