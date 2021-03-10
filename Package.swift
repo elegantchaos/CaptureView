@@ -1,4 +1,4 @@
-// swift-tools-version:5.2
+// swift-tools-version:5.3
 
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 //  Created by Sam Deane on 09/03/2021.
@@ -10,7 +10,7 @@ import PackageDescription
 let package = Package(
     name: "CaptureView",
     platforms: [
-        .macOS(.v10_13), .iOS(.v13), .tvOS(.v13), .watchOS(.v6)
+        .macOS(.v10_13), .iOS(.v14)
     ],
     products: [
         .library(

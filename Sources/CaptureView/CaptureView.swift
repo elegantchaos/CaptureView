@@ -4,6 +4,7 @@
 // -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 
 #if canImport(SwiftUI)
+#if canImport(UIKit)
 
 import SwiftUI
 
@@ -34,4 +35,5 @@ public struct CaptureView : UIViewControllerRepresentable {
     
 }
 
+#endif
 #endif

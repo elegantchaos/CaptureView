@@ -21,6 +21,10 @@ public final class CaptureUIViewController: UIViewController {
     public override func loadView() {
         captureController = CaptureController(delegate: self)
         
+        if captureController == nil {
+            print("Couldn't get capture controller.")
+        }
+
         view = UIView()
         view.backgroundColor = .lightGray
     }
