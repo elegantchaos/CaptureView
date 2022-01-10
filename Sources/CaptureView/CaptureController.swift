@@ -44,6 +44,8 @@ public final class CaptureController: NSObject, AVCaptureVideoDataOutputSampleBu
     
     func shutdown() {
         session.stopRunning()
+        session.inputs.forEach { session.removeInput($0) }
+        session.outputs.forEach{ session.removeOutput($0) }
         requests.removeAll()
         delegate = nil
     }

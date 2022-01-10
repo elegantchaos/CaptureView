@@ -33,6 +33,9 @@ public struct CaptureView : UIViewControllerRepresentable {
         
     }
     
+    public static func dismantleUIViewController(_ uiViewController: CaptureUIViewController, coordinator: ()) {
+        uiViewController.cleanup()
+    }
 }
 
 #endif

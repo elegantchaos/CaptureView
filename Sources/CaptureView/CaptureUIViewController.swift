@@ -19,8 +19,6 @@ public final class CaptureUIViewController: UIViewController {
     var captureLayer: CALayer?
     
     public override func loadView() {
-        captureController = CaptureController(delegate: self)
-        
         if captureController == nil {
             print("Couldn't get capture controller.")
         }
@@ -31,14 +29,11 @@ public final class CaptureUIViewController: UIViewController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        captureController?.run()
-    }
-    
-    public override func viewWillDisappear(_ animated: Bool) {
-        captureLayer?.removeFromSuperlayer()
-        captureLayer = nil
-        captureController?.shutdown()
-        super.viewWillDisappear(animated)
+        
+        if captureController == nil {
+            captureController = CaptureController(delegate: self)
+            captureController?.run()
+        }
     }
     
     public override func viewWillLayoutSubviews() {
@@ -48,6 +43,13 @@ public final class CaptureUIViewController: UIViewController {
     
     func resizeCaptureLayer() {
         captureLayer?.frame = CGRect(origin: .zero, size: view.frame.size)
+    }
+    
+    func cleanup() {
+        captureLayer?.removeFromSuperlayer()
+        captureLayer = nil
+        captureController?.shutdown()
+        captureController = nil
     }
 }
 
